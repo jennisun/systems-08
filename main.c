@@ -33,6 +33,19 @@ char * mystrcat( char *dest, char *source ) {
   return dest;
 }
 
+int mystrcmp( char *s1, char *s2 ) {
+  unsigned char *p1 = s1;
+  unsigned char *p2 = s2;
+
+  while (*p1 != 0 || *p2 != 0) {
+    if (*p1 > *p2) return 1;
+    if (*p1 < *p2) return -1;
+    p1 += 1;
+    p2 += 1;
+  }
+  return 0;
+}
+
 int main() {
   char s1[100];
   char s2[100] = "hello";
@@ -55,6 +68,17 @@ int main() {
   printf("[standard]:\t[%s]\n", strcat(s1, s3) );
   s1[5] = 0;
   printf("[mine]:\t\t[%s]\n", mystrcat(s1, s3) );
+
+  printf("\nTesting strcmp\n");
+  printf("\tComparting ab to abc:\n");
+  printf("\t\t[standard]:\t[%d]\n", strcmp("ab", "abc") );
+  printf("\t\t[mine]:\t\t[%d]\n", mystrcmp("ab", "abc") );
+  printf("\tComparting abc to ab:\n");
+  printf("\t\t[standard]:\t[%d]\n", strcmp("abc", "ab") );
+  printf("\t\t[mine]:\t\t[%d]\n", mystrcmp("abc", "ab") );
+  printf("\tComparting abc to abc:\n");
+  printf("\t\t[standard]:\t[%d]\n", strcmp("abc", "abc") );
+  printf("\t\t[mine]:\t\t[%d]\n", mystrcmp("abc", "abc") );
 
   return 0;
 }
