@@ -21,6 +21,18 @@ char * mystrncpy( char *dest, char *source, int n) {
   return dest;
 }
 
+char * mystrcat( char *dest, char *source ) {
+  int i = 0;
+  int k  = 0;
+  i = mystrlen(dest);
+  while (*(source + k) != '\0') {
+    *(dest + i + k - 2) = *(source + k);
+    k += 1;
+  }
+  *(dest + i + k) = '\0';
+  return dest;
+}
+
 int main() {
   char s1[100];
   char s2[100] = "hello";
@@ -38,6 +50,11 @@ int main() {
   printf("\nTesting strncpy(s1, s3, 3):\n");
   printf("[standard]:\t[%s]\n", strncpy(s1, s3, 3) );
   printf("[mine]:\t\t[%s]\n", mystrncpy(s1, s3, 3) );
+
+  printf("\nTesting strcat(s1, s3):\n");
+  printf("[standard]:\t[%s]\n", strcat(s1, s3) );
+  s1[5] = 0;
+  printf("[mine]:\t\t[%s]\n", mystrcat(s1, s3) );
 
   return 0;
 }
