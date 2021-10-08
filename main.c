@@ -22,14 +22,13 @@ char * mystrncpy( char *dest, char *source, int n) {
 }
 
 char * mystrcat( char *dest, char *source ) {
-  int i = 0;
-  int k  = 0;
-  i = mystrlen(dest);
-  while (*(source + k) != '\0') {
-    *(dest + i + k - 2) = *(source + k);
-    k += 1;
+  int i = mystrlen(dest);
+  int c = i;
+  while (*(source + c)) {
+    *(dest + i) = *(source + c - i);
+    c += 1;
   }
-  *(dest + i + k) = '\0';
+  *(dest + i + c) = '\0';
   return dest;
 }
 
@@ -44,6 +43,14 @@ int mystrcmp( char *s1, char *s2 ) {
     p2 += 1;
   }
   return 0;
+}
+
+char * mystrchr( char *s, char c ) {
+  while (*s != c && *s) {
+    s += 1;
+  }
+  if (*s == c) return s;
+  else return NULL;
 }
 
 int main() {
@@ -79,6 +86,18 @@ int main() {
   printf("\tComparting abc to abc:\n");
   printf("\t\t[standard]:\t[%d]\n", strcmp("abc", "abc") );
   printf("\t\t[mine]:\t\t[%d]\n", mystrcmp("abc", "abc") );
+
+  printf("\nTesting strchr(s1, 'l'):\n");
+  printf("[standard]:\t[%p]\n", strchr(s1, 'l') );
+  printf("[mine]:\t\t[%p]\n", mystrchr(s1, 'l') );
+
+  printf("\nTesting strchr(s1, 0):\n");
+  printf("[standard]:\t[%p]\n", strchr(s1, 0) );
+  printf("[mine]:\t\t[%p]\n", mystrchr(s1, 0) );
+
+  printf("\nTesting strchr(s1, 'z'):\n");
+  printf("[standard]:\t[%p]\n", strchr(s1, 'z') );
+  printf("[mine]:\t\t[%p]\n", mystrchr(s1, 'z') );
 
   return 0;
 }
